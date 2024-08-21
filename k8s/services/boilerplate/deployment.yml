@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: boilerplate
+  labels:
+    app: boilerplate
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: boilerplate
+  template:
+    metadata:
+      labels:
+        app: boilerplate
+    spec:
+      containers:
+        - name: boilerplate
+          image: boilerplate:latest
+          ports:
+            - containerPort: 50051
+          resources:
+            limits:
+              cpu: "1"
+              memory: "512Mi"
+            requests:
+              cpu: "0.5"
+              memory: "256Mi"
+
+          envFrom:
+            - configMapRef:
+                name: my-service-config
+            - secretRef:
+                name: my-service-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: boilerplate
+spec:
+  selector:
+    app: boilerplate
+  ports:
+    - protocol: TCP
+      port: 50051
+      targetPort: 50051

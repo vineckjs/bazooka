@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: boilerplate-config
+data:
+  POSTGRES_HOST: "boilerplate-postgres"
+  RABBITMQ_URL: "amqp://rabbitmq:5672"
+  POSTGRES_PORT: "5432"
+  POSTGRES_DB: "mydb"
+  REDIS_HOST: "boilerplate-redis"
+  MONGODB_HOST: "boilerplate-mongodb"
+  JAEGER_AGENT_HOST: "jaeger-agent"
+  PROMETHEUS_PUSHGATEWAY_URL: "http://prometheus-pushgateway:9091"
