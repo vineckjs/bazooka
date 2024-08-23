@@ -1,23 +1,24 @@
 {
-  "name": "bazooka",
-  "version": "0.0.1",
-  "description": "Framework for building large scale applications",
-  "main": "index.js",
-  "workspaces": [
-    "packages/*",
-    "services/*",
-    "apps/web/**/*",
-    "apps/mobile/*"
-  ],
-  "scripts": {
-    "build": "turbo build",
-    "dev": "turbo dev",
-    "test": "turbo test"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "turbo": "^2.0.14"
-  }
+    "name": "bazooka",
+    "version": "0.0.1",
+    "description": "Framework for building large scale applications",
+    "private": true,
+    "main": "index.js",
+    "workspaces": [
+        "packages/*",
+        "services/*",
+        "apps/web/**/*",
+        "apps/mobile/*"
+    ],
+    "scripts": {
+        "build": "turbo build",
+        "dev": "turbo dev",
+        "test": "turbo test"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "turbo": "^2.0.14"
+    }
 }
