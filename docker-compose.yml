@@ -1,0 +1,42 @@
+version: "3.8"
+services:
+  mongo:
+    image: mongo:6.0
+    container_name: catalog-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - catalog-network
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: catalog-rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - catalog-network
+
+  catalog-service:
+    build:
+      context: ./services/catalog
+    container_name: catalog-service
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/catalog
+      - RABBITMQ_URI=amqp://rabbitmq:5672
+    depends_on:
+      - mongo
+      - rabbitmq
+    networks:
+      - catalog-network
+
+volumes:
+  mongo-data:
+
+networks:
+  catalog-network:
+    driver: bridge
