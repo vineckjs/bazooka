@@ -1,3 +1,4 @@
 {
-  "name": "@mh/customer-sdk"
+  "name": "@mh/app-mobile-picking",
+  "version": "0.0.1"
 }

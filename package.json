@@ -1,24 +1,33 @@
 {
-    "name": "bazooka",
-    "version": "0.0.1",
-    "description": "Framework for building large scale applications",
-    "private": true,
-    "main": "index.js",
-    "workspaces": [
-        "packages/*",
-        "services/*",
-        "apps/web/**/*",
-        "apps/mobile/*"
-    ],
-    "scripts": {
-        "build": "turbo build",
-        "dev": "turbo dev",
-        "test": "turbo test"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "devDependencies": {
-        "turbo": "^2.0.14"
-    }
+  "name": "bazooka",
+  "version": "0.0.1",
+  "description": "Framework for building large scale applications",
+  "private": true,
+  "main": "index.js",
+  "packageManager": "yarn@1.22.22",
+  "workspaces": [
+    "packages/*",
+    "services/*",
+    "apps/web/**/*",
+    "apps/mobile/*"
+  ],
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "test": "turbo test",
+    "prepare": "husky install"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@commitlint/cli": "^19.4.0",
+    "@commitlint/config-conventional": "^19.2.2",
+    "husky": "^8.0.0",
+    "turbo": "^2.0.14",
+    "lint-staged": "^15.2.9"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx}": []
+  }
 }

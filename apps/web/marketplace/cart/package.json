@@ -1,3 +1,4 @@
 {
-  "name": "@mh/customer-sdk"
+  "name": "@mh/app-web-cart",
+  "version": "0.0.1"
 }
