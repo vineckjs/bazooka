@@ -11,11 +11,15 @@ import { TracingInterceptor } from './tracing/tracing.interceptor';
 
 import { createLogger } from './logger.config';
 import { LoggerMiddleware } from './logger.middleware';
+import { TrpcModule } from './trpc/trpc.module';
+import { TRPCService } from './trpc/trpc.service';
+
 @Module({
   imports: [
     ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.MONGO_URI),
     PrometheusModule.register(),
+    TrpcModule,
     CatalogModule,
     MonitoringModule,
     ClientsModule.register([
@@ -57,5 +61,6 @@ import { LoggerMiddleware } from './logger.middleware';
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(LoggerMiddleware).forRoutes('*');
+    consumer.apply(TRPCService.prototype.getMiddleware()).forRoutes('*');
   }
 }
