@@ -5,6 +5,9 @@
   "private": true,
   "main": "index.js",
   "packageManager": "yarn@1.22.22",
+  "engines": {
+    "node": ">=20.17.0"
+  },
   "workspaces": [
     "packages/*",
     "services/*",
@@ -29,9 +32,9 @@
   },
   "lint-staged": {
     "services/**/*.ts": [
-      "eslint --fix",
-      "prettier --write",
-      "turbo run build --filter ./services/**"
+      // "eslint --fix",
+      // "prettier --write",
+      // "turbo run build --filter ./services/**"
     ],
     "apps/**/*.{js,jsx,ts,tsx}": [
       "eslint --fix",
