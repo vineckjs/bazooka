@@ -1,4 +1,3 @@
-version: "3.8"
 services:
   mongo:
     image: mongo:6.0
@@ -107,8 +106,7 @@ services:
     container_name: kibana
     environment:
       - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
-      - ELASTICSEARCH_USERNAME=elastic
-      - ELASTICSEARCH_PASSWORD=topsecret
+      - ELASTICSEARCH_SERVICE_TOKEN=AAEAAWVsYXN0aWMva2liYW5hL2tpYmFuYS1zZXJ2aWNlLWFjY291bnQ6bWJTWlJOV3RRT2Fub1l1TXJhdU54UQ
     ports:
       - "5601:5601"
     depends_on:
