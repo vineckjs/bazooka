@@ -38,7 +38,8 @@ services:
       - elasticsearch
       - rabbitmq
       - prometheus
-      - jaeger
+      - jaeger-agent
+      - jaeger-collector
     networks:
       - catalog-network
 

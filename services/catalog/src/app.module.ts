@@ -1,26 +1,22 @@
 import { Logger, MiddlewareConsumer, Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { CatalogModule } from './catalog/catalog.module';
-import { MonitoringModule } from './monitoring/monitoring.module';
+import { MonitoringModule } from './infra/monitoring/monitoring.module';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-import { TracingService } from './tracing/tracing.service';
+import { TracingService } from './infra/tracing/tracing.service';
 
 import { PrometheusModule } from '@willsoto/nestjs-prometheus';
-import { TracingInterceptor } from './tracing/tracing.interceptor';
+import { TracingInterceptor } from './infra/tracing/tracing.interceptor';
 
-import { createLogger } from './logger.config';
-import { LoggerMiddleware } from './logger.middleware';
-import { TrpcModule } from './trpc/trpc.module';
-import { TRPCService } from './trpc/trpc.service';
+import { createLogger } from './infra/logger/logger.config';
+import { LoggerMiddleware } from './infra/logger/logger.middleware';
+import { TRPCService } from './app/services/trpc.service';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.MONGO_URI),
     PrometheusModule.register(),
-    TrpcModule,
-    CatalogModule,
     MonitoringModule,
     ClientsModule.register([
       {
@@ -37,6 +33,7 @@ import { TRPCService } from './trpc/trpc.service';
     ]),
   ],
   providers: [
+    TRPCService,
     TracingService,
     {
       provide: 'APP_INTERCEPTOR',

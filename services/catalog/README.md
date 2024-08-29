@@ -32,7 +32,7 @@ $ yarn run test:cov
 
 ## Todo
 
-- [ ] - fix trpc implementation
+- [x] - fix trpc implementation
 - [ ] - write get methods
 - [ ] - migrations
 - [ ] - seeders
