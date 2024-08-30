@@ -1,0 +1,15 @@
+services:
+  catalog-service:
+    build:
+      context: ./services/catalog
+    container_name: catalog-service
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/catalog
+      - RABBITMQ_URI=amqp://rabbitmq:5672
+      - PROMETHEUS_ENDPOINT=http://prometheus:9090
+      - JAEGER_AGENT_HOST=jaeger-agent
+      - ELASTICSEARCH_URL=http://localhost:9200
+      - ELASTICSEARCH_USERNAME=elastic
+      - ELASTICSEARCH_PASSWORD=topsecret

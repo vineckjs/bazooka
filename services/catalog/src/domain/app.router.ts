@@ -1,12 +1,11 @@
 import { initTRPC } from '@trpc/server';
-import customerRoutes from './routes/customer.routes';
-import merchantRoutes from './routes/merchant.routes';
 
 const t = initTRPC.create();
 
 export const AppRouter = t.router({
-  ...customerRoutes,
-  ...merchantRoutes,
+  hello: t.procedure.query(() => {
+    return 'Hello World!';
+  }),
 });
 
 export type AppRouterType = typeof AppRouter;

@@ -10,9 +10,11 @@ import { TracingInterceptor } from './infra/tracing/tracing.interceptor';
 
 import { createLogger } from './infra/logger/logger.config';
 import { LoggerMiddleware } from './infra/logger/logger.middleware';
-import { TRPCService } from './app/services/trpc.service';
+import { TRPCService } from './domain/services/trpc.service';
+import { TrpcPanelController } from './domain/controllers/panel.controller';
 
 @Module({
+  controllers: [TrpcPanelController],
   imports: [
     ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.MONGO_URI),
@@ -52,12 +54,13 @@ import { TRPCService } from './app/services/trpc.service';
           debug: (message: string) => logger.debug(message),
         };
       },
+      inject: [ConfigService],
     },
   ],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(LoggerMiddleware).forRoutes('*');
-    consumer.apply(TRPCService.prototype.getMiddleware()).forRoutes('*');
+    consumer.apply(TRPCService.prototype.getMiddleware()).forRoutes('/trpc');
   }
 }

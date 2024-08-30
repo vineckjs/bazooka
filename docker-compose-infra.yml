@@ -6,8 +6,6 @@ services:
       - "27017:27017"
     volumes:
       - mongo-data:/data/db
-    networks:
-      - catalog-network
 
   rabbitmq:
     image: rabbitmq:3-management
@@ -15,32 +13,6 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
-    networks:
-      - catalog-network
-
-  catalog-service:
-    build:
-      context: ./services/catalog
-    container_name: catalog-service
-    ports:
-      - "3000:3000"
-    environment:
-      - MONGO_URI=mongodb://mongo:27017/catalog
-      - RABBITMQ_URI=amqp://rabbitmq:5672
-      - PROMETHEUS_ENDPOINT=http://prometheus:9090
-      - JAEGER_AGENT_HOST=jaeger-agent
-      - ELASTICSEARCH_URL=http://localhost:9200
-      - ELASTICSEARCH_USERNAME=elastic
-      - ELASTICSEARCH_PASSWORD=topsecret
-    depends_on:
-      - mongo
-      - elasticsearch
-      - rabbitmq
-      - prometheus
-      - jaeger-agent
-      - jaeger-collector
-    networks:
-      - catalog-network
 
   prometheus:
     image: prom/prometheus:latest
@@ -49,8 +21,6 @@ services:
       - "9090:9090"
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
-    networks:
-      - catalog-network
 
   grafana:
     image: grafana/grafana:latest
@@ -59,8 +29,6 @@ services:
       - "3001:3000"
     depends_on:
       - prometheus
-    networks:
-      - catalog-network
 
   jaeger-agent:
     image: jaegertracing/jaeger-agent:latest
@@ -68,8 +36,6 @@ services:
     ports:
       - "5775:5775/udp"
       - "14250:14250"
-    networks:
-      - catalog-network
 
   jaeger-collector:
     image: jaegertracing/jaeger-collector:latest
@@ -77,8 +43,6 @@ services:
     ports:
       - "14267:14267"
       - "14268:14268"
-    networks:
-      - catalog-network
 
   jaeger-query:
     image: jaegertracing/jaeger-query:latest
@@ -87,8 +51,6 @@ services:
       - "16686:16686"
     depends_on:
       - jaeger-collector
-    networks:
-      - catalog-network
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.0.0
@@ -115,7 +77,3 @@ services:
 volumes:
   esdata:
   mongo-data:
-
-networks:
-  catalog-network:
-    driver: bridge
