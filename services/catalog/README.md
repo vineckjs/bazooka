@@ -33,7 +33,8 @@ $ yarn run test:cov
 ## Todo
 
 - [x] - fix trpc implementation
-- [ ] - write get methods
+- [ ] - tests
+- [ ] - write some methods
 - [ ] - migrations
 - [ ] - seeders
-- [ ] - listen to upsert products
+- [ ] - amqp
