@@ -30,27 +30,40 @@ services:
     depends_on:
       - prometheus
 
-  jaeger-agent:
-    image: jaegertracing/jaeger-agent:latest
-    container_name: jaeger-agent
+  cassandra:
+    image: cassandra:4.0
+    container_name: cassandra
     ports:
-      - "5775:5775/udp"
-      - "14250:14250"
+      - "9042:9042"
+    environment:
+      - CASSANDRA_CLUSTER_NAME=jaeger-cluster
+      - CASSANDRA_NUM_TOKENS=256
+      - MAX_HEAP_SIZE=512M
+      - HEAP_NEWSIZE=100M
+    volumes:
+      - ./create_keyspace.cql:/docker-entrypoint-init
 
-  jaeger-collector:
-    image: jaegertracing/jaeger-collector:latest
-    container_name: jaeger-collector
+  jaeger:
+    image: jaegertracing/all-in-one:1.45
+    container_name: jaeger
     ports:
-      - "14267:14267"
-      - "14268:14268"
-
-  jaeger-query:
-    image: jaegertracing/jaeger-query:latest
-    container_name: jaeger-query
-    ports:
-      - "16686:16686"
+      - "16686:16686" # Jaeger UI
+      - "6831:6831/udp" # Jaeger agent (Thrift over UDP)
+      - "6832:6832/udp" # Jaeger agent (Thrift over UDP)
+      - "14268:14268" # Jaeger collector
+      - "14250:14250" # gRPC
+      - "14269:14269" # HTTP
+      - "9411:9411" # Zipkin compatible API
+    environment:
+      - CASSANDRA_SERVERS=cassandra
+      - CASSANDRA_KEYSPACE=jaeger_v1_test
+      - SPAN_STORAGE_TYPE=cassandra
     depends_on:
-      - jaeger-collector
+      - cassandra
+    entrypoint:
+      ["./wait-for-it.sh", "cassandra:9042", "--", "/go/bin/all-in-one-linux"]
+    volumes:
+      - ./wait-for-it.sh:/wait-for-it.sh
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.0.0

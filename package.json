@@ -32,9 +32,15 @@
     "lint-staged": "^15.2.9"
   },
   "lint-staged": {
-    "services/**/*.ts": [],
+    "services/**/*.ts": [
+      "eslint --fix",
+      "git add",
+      "prettier --write",
+      "turbo run build --filter ./apps/**"
+    ],
     "apps/**/*.{js,jsx,ts,tsx}": [
       "eslint --fix",
+      "git add",
       "prettier --write",
       "turbo run build --filter ./apps/**"
     ]
