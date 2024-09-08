@@ -11,15 +11,28 @@ import { TracingInterceptor } from './infra/tracing/tracing.interceptor';
 import { createLogger } from './infra/logger/logger.config';
 import { LoggerMiddleware } from './infra/logger/logger.middleware';
 import { TRPCService } from './domain/services/trpc.service';
-import { TrpcPanelController } from './domain/controllers/panel.controller';
+import { KnexConfigService } from './infra/database/knex.config';
+import { ProductRepository } from './domain/repositories/product.repository';
+import knex from 'knex';
+import { MerchantModel } from './domain/models/merchant.model';
+import { StoreModel } from './domain/models/store.model';
+import { StoreProductModel } from './domain/models/store-product.model';
+import { StoreSectionModel } from './domain/models/store-section.model';
 
 @Module({
-  controllers: [TrpcPanelController],
   imports: [
     ConfigModule.forRoot(),
-    MongooseModule.forRoot(process.env.MONGO_URI),
     PrometheusModule.register(),
     MonitoringModule,
+
+    MongooseModule.forRoot(process.env.MONGO_URI),
+    MongooseModule.forFeature([
+      { name: MerchantModel.name, schema: MerchantModel },
+      { name: StoreModel.name, schema: StoreModel },
+      { name: StoreProductModel.name, schema: StoreProductModel },
+      { name: StoreSectionModel.name, schema: StoreSectionModel },
+    ]),
+
     ClientsModule.register([
       {
         name: 'RABBITMQ_SERVICE',
@@ -55,6 +68,16 @@ import { TrpcPanelController } from './domain/controllers/panel.controller';
         };
       },
       inject: [ConfigService],
+    },
+
+    KnexConfigService,
+    ProductRepository,
+    {
+      provide: 'KnexConnection',
+      useFactory: (knexConfigService: KnexConfigService) => {
+        return knex(knexConfigService.getKnexConfig());
+      },
+      inject: [KnexConfigService],
     },
   ],
 })
