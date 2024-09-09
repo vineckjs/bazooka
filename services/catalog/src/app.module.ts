@@ -14,10 +14,14 @@ import { TRPCService } from './domain/services/trpc.service';
 import { KnexConfigService } from './infra/database/knex.config';
 import { ProductRepository } from './domain/repositories/product.repository';
 import knex from 'knex';
-import { MerchantModel } from './domain/models/merchant.model';
-import { StoreModel } from './domain/models/store.model';
-import { StoreProductModel } from './domain/models/store-product.model';
-import { StoreSectionModel } from './domain/models/store-section.model';
+import { CatalogService } from './domain/services/catalog.service';
+import { StoreProductRepository } from './domain/repositories/store-product.repository';
+import { MerchantService } from './domain/services/merchant.service';
+import { MerchantRepository } from './domain/repositories/merchant.repository';
+import { MerchantEntity } from './domain/entities/merchant.entity';
+import { StoreEntity } from './domain/entities/store.entity';
+import { StoreProductEntity } from './domain/entities/store-product.entity';
+import { StoreSectionEntity } from './domain/entities/store-section.entity';
 
 @Module({
   imports: [
@@ -27,10 +31,10 @@ import { StoreSectionModel } from './domain/models/store-section.model';
 
     MongooseModule.forRoot(process.env.MONGO_URI),
     MongooseModule.forFeature([
-      { name: MerchantModel.name, schema: MerchantModel },
-      { name: StoreModel.name, schema: StoreModel },
-      { name: StoreProductModel.name, schema: StoreProductModel },
-      { name: StoreSectionModel.name, schema: StoreSectionModel },
+      { name: 'Merchant', schema: MerchantEntity },
+      { name: 'Store', schema: StoreEntity },
+      { name: 'StoreProduct', schema: StoreProductEntity },
+      { name: 'StoreSection', schema: StoreSectionEntity },
     ]),
 
     ClientsModule.register([
@@ -47,6 +51,7 @@ import { StoreSectionModel } from './domain/models/store-section.model';
       },
     ]),
   ],
+
   providers: [
     TRPCService,
     TracingService,
@@ -79,6 +84,11 @@ import { StoreSectionModel } from './domain/models/store-section.model';
       },
       inject: [KnexConfigService],
     },
+    CatalogService,
+    MerchantService,
+    StoreProductRepository,
+    ProductRepository,
+    MerchantRepository,
   ],
 })
 export class AppModule {
