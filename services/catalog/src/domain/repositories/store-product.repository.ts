@@ -23,6 +23,10 @@ export class StoreProductRepository {
     return this.storeProductModel.find().exec();
   }
 
+  async find(params: object): Promise<StoreProduct[]> {
+    return this.storeProductModel.find(params).exec();
+  }
+
   async update(
     productId: string,
     updateData: Partial<StoreProduct>,

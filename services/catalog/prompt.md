@@ -15,7 +15,9 @@ sections:
 getSections(storeId?: string, parentId?: string): Lista as categorias de produtos, aninhadas pela propriedade "parent".
 
 products:
-getProductsBySection(sectionId: string, merchantId: string): Lista os produtos de uma categoria com paginação por cursor para suporte ao infinite scroll.
+getProductsBySection(context: Context, params: {sectionId: string, merchantId: string}): Lista os produtos de uma categoria com paginação por cursor para suporte ao infinite scroll.
+
+getFeaturedProducts(context: Context, params: { merchantId: string , sectionId: string }): Lista os produtos mais populares, levando em consideração o preço médio e o número de vendas no dia.
 
 updateProductPrices(productId:string, price: number, promotionalPrice?: number): Atualiza preços de produtos.
 

@@ -1,6 +1,7 @@
-import { Schema } from 'mongoose';
+import { Schema, Types } from 'mongoose';
 
 export const StoreProductEntity = new Schema({
+  id: { type: Types.ObjectId, default: () => new Types.ObjectId() },
   name: { type: String, required: true },
   thumbnail: { type: String, required: true },
   price: { type: Number, required: true },
