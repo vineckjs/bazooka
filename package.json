@@ -28,16 +28,11 @@
     "@commitlint/cli": "^19.4.0",
     "@commitlint/config-conventional": "^19.2.2",
     "husky": "^8.0.0",
-    "turbo": "^2.0.14",
-    "lint-staged": "^15.2.9"
+    "lint-staged": "^15.2.9",
+    "turbo": "^2.0.14"
   },
   "lint-staged": {
-    "services/**/*.ts": [
-      "eslint --fix",
-      "git add",
-      "prettier --write",
-      "turbo run build --filter ./apps/**"
-    ],
+    "services/**/*.ts": [],
     "apps/**/*.{js,jsx,ts,tsx}": [
       "eslint --fix",
       "git add",

@@ -1,15 +1,19 @@
 import { Injectable } from '@nestjs/common';
-import { MerchantRepository } from '../repositories/merchant.repository';
+import { InjectModel } from '@nestjs/mongoose';
+import { Merchant } from '../types/merchant.type';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class MerchantService {
-  constructor(private readonly merchantRepository: MerchantRepository) {}
+  constructor(
+    @InjectModel('Merchant') private readonly merchantModel: Model<Merchant>,
+  ) {}
 
   async getAllMerchants() {
-    return this.merchantRepository.findAll();
+    return this.merchantModel.find();
   }
 
   async getMerchantById(id: string) {
-    return this.merchantRepository.findById(id);
+    return this.merchantModel.findById(id);
   }
 }

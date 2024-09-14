@@ -70,7 +70,7 @@ export class CatalogService {
       {
         $match: {
           promotionalPrice: { $exists: true, $ne: null },
-          store: { $in: nearbyStores.map((store) => store._id) },
+          store: { $in: nearbyStores.map((store) => store.id) },
         },
       },
       {

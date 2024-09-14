@@ -2,3 +2,5 @@ node_modules
 .turbo
 package-lock.json
 postgres_data
+mongo-data
+.VSCodeCounter
