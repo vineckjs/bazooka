@@ -1,5 +1,5 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { MerchantService } from '../services/merchant.service';
+import { MerchantService } from '../../application/services/merchant.service';
 import { IsString } from 'class-validator';
 
 class GetMerchantDto {

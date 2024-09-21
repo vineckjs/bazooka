@@ -1,5 +1,5 @@
 import { model, Schema, Types } from 'mongoose';
-import { Store } from '../types/store.type';
+import { Store } from '../../application/types/store.type';
 
 export const StoreEntity = new Schema({
   name: { type: String, required: true },

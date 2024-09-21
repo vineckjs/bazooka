@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { StoreProduct } from '../types/store-product.type';
+import { StoreProduct } from '../../application/types/store-product.type';
 
 @Injectable()
 export class StoreProductRepository {

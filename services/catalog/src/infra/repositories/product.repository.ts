@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Knex } from 'knex';
-import { Product } from '../types/product.type';
+import { Product } from '../../application/types/product.type';
 
 @Injectable()
 export class ProductRepository {

@@ -1,5 +1,5 @@
 import { Controller, Get, Query } from '@nestjs/common';
-import { SectionService } from '../services/sections.service';
+import { SectionService } from '../../application/services/sections.service';
 import { IsOptional, IsString } from 'class-validator';
 
 class GetSectionsDto {

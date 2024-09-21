@@ -1,6 +1,6 @@
 // src/controllers/products.controller.ts
 import { Controller, Get, Patch, Query, Body } from '@nestjs/common';
-import { CatalogService } from '../services/catalog.service';
+import { CatalogService } from '../../application/services/catalog.service';
 import { IsNumber, IsOptional, IsString } from 'class-validator';
 
 class GetProductsBySectionDto {
