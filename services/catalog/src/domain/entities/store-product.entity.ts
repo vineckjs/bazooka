@@ -9,4 +9,5 @@ export const StoreProductEntity = new Schema({
   availableQuantity: { type: Number, required: true },
   description: { type: String, required: true },
   barcode: { type: String, required: true },
+  sectionId: { type: String, required: true },
 });

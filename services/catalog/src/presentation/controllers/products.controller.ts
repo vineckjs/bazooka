@@ -84,9 +84,8 @@ export class ProductsController {
 
   @Get('featured')
   async getFeaturedProducts(@Query() query: GetFeaturedProductsDto) {
-    console.log(query);
     const { lat, lng, cursor, limit, sectionId, merchantId } = query;
-    console.log(lat, lng);
+
     return this.catalogService.getFeaturedProducts(
       { lat, lng },
       { cursor, limit, sectionId, merchantId },
